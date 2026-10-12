@@ -13,10 +13,10 @@ Production-grade deployment of the full-stack MERN application **TravelMemory** 
 
 ## 🔗 Live Deployments & Repository Links
 
-- **Live Application:** [https://bucketvilla.online](https://bucketvilla.online)
+- **Live Application:** [https://bucketvilla.online](https://www.bucketvilla.online)
 - **Backend Health Check:** [https://api.bucketvilla.online/hello](https://api.bucketvilla.online/hello)
 - **GitHub Repository:** [https://github.com/Mohit456pro/Mohit456pro-TravelMemory-Deployment](https://github.com/Mohit456pro/Mohit456pro-TravelMemory-Deployment)
-- **Architecture Diagram File:** [`travelmemory_architecture.drawio`](./travelmemory_architecture.drawio)
+- **Architecture Diagram File:** [`travelmemory_architecture3.drawio`](./travelmemory_architecture3.drawio.png)
 
 ---
 
@@ -93,6 +93,7 @@ The architecture implements a decoupled, highly available, and resilient two-tie
 4. Acquired the database connection string:
    ```env
    MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/travelmemory?retryWrites=true&w=majority
+   PORT=3000
    ```
 
 ---
@@ -110,6 +111,7 @@ The architecture implements a decoupled, highly available, and resilient two-tie
    git clone https://github.com/UnpredictablePrashant/TravelMemory.git
    cd TravelMemory/backend
    npm install
+   sudo node index.js
    ```
 5. Configured `systemd` unit file at `/etc/systemd/system/travelmemory-backend.service`:
    ```ini
@@ -144,7 +146,7 @@ The architecture implements a decoupled, highly available, and resilient two-tie
    }
    ```
    Restarted Nginx: `sudo systemctl restart nginx`.
-8. Tested endpoint: `curl http://localhost/hello` returned `Hello World!`.
+8. Tested endpoint: `curl http://localhost/hello` `http://<backend-master-public-ip>/hello` returned `Hello World!`.
 
 ---
 
@@ -154,8 +156,9 @@ The architecture implements a decoupled, highly available, and resilient two-tie
 3. Cloned project repository:
    ```bash
    git clone https://github.com/UnpredictablePrashant/TravelMemory.git
-   cd TravelMemory/frontend
-   ```
+   cd TravelMemory/frontend```
+   Open src/url.js:  `export const baseUrl = "http://<backend-master-public-ip>";`
+   
 4. Built optimized production build:
    ```bash
    npm install
@@ -173,6 +176,7 @@ The architecture implements a decoupled, highly available, and resilient two-tie
    }
    ```
 7. Reloaded Nginx: `sudo systemctl restart nginx`.
+8. Verify: `http://<frontend-master-public-ip>`
 
 ---
 
@@ -225,10 +229,9 @@ The architecture implements a decoupled, highly available, and resilient two-tie
 | **4. Target Groups** | Both Target Groups showing `Healthy` status | ![Target Groups](screenshots/target-groups.png) |
 | **5. Load Balancers** | Dual ALBs deployed in AWS Default VPC | ![Frontend ALB](screenshots/aws-albs-frontend.png) ![Backend ALB](screenshots/aws-albs-backend.png) |
 | **6. DNS & SSL** | Cloudflare CNAME Records for Root & API subdomain | ![Cloudflare DNS](screenshots/cloudflare-dns.png) |
-| **7. Live App** | Fully functional UI at `https://bucketvilla.online` | ![TravelMemory Live](screenshots/live-frontend.png) |
+| **7. Live App** | Fully functional UI at `https://www.bucketvilla.online` | ![TravelMemory Live](screenshots/live-frontend.png) |
 | **8. Database CRUD** | Saved experience persisted in MongoDB Atlas | ![Database Record 1](screenshots/mongodb-record1.png) ![Database Record 2](screenshots/mongodb-record2.png) |
 
-*(Note: Place your screenshot image files inside a `./screenshots/` folder in your repository to render them in the table above).*
 
 ---
 
